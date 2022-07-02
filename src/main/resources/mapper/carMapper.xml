@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace 對應持久層的介面 -->
+<mapper namespace="mybatis.example.mapper.CarMapper">
+    <!-- id 對應持久層介面的方法，parameterType 為引數資料型別，resultType 為返回資料型別 -->
+    <resultMap id="allMap" type="mybatis.example.entity.ResponseSample">
+        <id column="brand" property="brand"/>
+        <result column="nums" property="nums"/>
+        <result column="years" property="years"/>
+    </resultMap>
+
+    <select id="getAll" resultMap="allMap">
+            SELECT brand,COUNT(c.brand) AS nums,b.years
+            FROM car c INNER JOIN brand_detail b ON c.brand = b.id
+            GROUP BY brand HAVING COUNT(c.brand) > 0
+    </select>
+
+    <select id="getTargetBrand" resultMap="allMap">
+            SELECT brand,COUNT(c.brand) AS nums,b.years
+            FROM car c INNER JOIN brand_detail b ON c.brand = b.id WHERE c.brand = #{brand}
+            GROUP BY brand HAVING COUNT(c.brand) > 0
+    </select>
+</mapper>
