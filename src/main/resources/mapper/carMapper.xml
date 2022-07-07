@@ -7,6 +7,7 @@
         <id column="brand" property="brand"/>
         <result column="nums" property="nums"/>
         <result column="years" property="years"/>
+        <collection column="brand" select="testSelect" ofType="string" property="test"/>
     </resultMap>
 
     <select id="getAll" resultMap="allMap">
@@ -19,5 +20,9 @@
             SELECT brand,COUNT(c.brand) AS nums,b.years
             FROM car c INNER JOIN brand_detail b ON c.brand = b.id WHERE c.brand = #{brand}
             GROUP BY brand HAVING COUNT(c.brand) > 0
+    </select>
+    <!-- car_brand 獲取 collection的 column="brand" 帶入做找尋 二次嵌套的搜尋方法-->
+    <select id="testSelect" resultType="string">
+            SELECT username FROM employee WHERE car_brand = #{brand}
     </select>
 </mapper>

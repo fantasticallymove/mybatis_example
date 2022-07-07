@@ -1,9 +1,12 @@
 package mybatis.example.entity;
 
+import java.util.List;
+
 public class ResponseSample {
     private String brand;
     private Integer nums;
     private Integer years;
+    private List<String> test;
 
     public ResponseSample() {
     }
@@ -30,5 +33,13 @@ public class ResponseSample {
 
     public void setYears(Integer years) {
         this.years = years;
+    }
+
+    public List<String> getTest() {
+        return test;
+    }
+
+    public void setTest(List<String> test) {
+        this.test = test;
     }
 }
